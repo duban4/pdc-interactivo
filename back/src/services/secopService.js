@@ -1,8 +1,5 @@
 import axios from 'axios'
-import express from 'express'
 
-const app = express()
-const port = 3000
 const api = "https://www.datos.gov.co/resource/p6dx-8zbt.json"
 
 const getData = async ()=>{
@@ -29,4 +26,3 @@ app.get("/datos",async(req,res)=>{
 app.listen(port,()=>{
     console.log(port)
 })
-
