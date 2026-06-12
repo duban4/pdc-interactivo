@@ -2,27 +2,49 @@ import axios from 'axios'
 
 const api = "https://www.datos.gov.co/resource/p6dx-8zbt.json"
 
-const getData = async ()=>{
-    try {
-        const res = await axios.get(api)
-        return res.data
+const mapContratosOptimizados =(contratos)=>{
+    return contratos.map(item=>({
+        
+    }))
+}
 
+
+//metodo base con todo
+export const  getContradosRawPaginados = async (limit,offset)=>{
+    try {
+        const url = `${api}?$limit=${limit}&$offset=${offset}`
+        const res = await axios.get(url)
+
+        return res.data
     } catch (error) {
-        console.log(error)
-        throw error;
+        console.error(error)
+        throw new Error("error al recuperar la informacion")
     }
 }
 
-app.get("/datos",async(req,res)=>{
+//metodo formateado y paginado
+export const getContratosFormateadosPaginados = async(limit,offset)=>{
     try {
-        const datosApi = await getData();
-        res.json(datosApi)
+        const url = `${api}?$limit=${limit}&$offset=${offset}`
+        const res = await axios.get(url)
+
+        return mapContratosOptimizados(res.data)
     } catch (error) {
-        res.status(500).json({error})
+        console.error(`[SecopService - Formatted Error]: ${error.message}`);
+        throw new Error('Error al recuperar los datos formateados de SECOP II');
     }
-})
+}
 
 
-app.listen(port,()=>{
-    console.log(port)
-})
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import secopRoutes from '../src/routes/secopRoutes.js'
 
 const app = express()
 const port = 3000
